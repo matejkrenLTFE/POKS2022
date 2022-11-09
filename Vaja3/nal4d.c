@@ -1,11 +1,17 @@
-if (otrok) 
-{
-   sleep(i);   /* zakasnitev nekaj sekund */
-   printf
-   return(0);
+
+#include <stdio.h> 
+#include <unistd.h> 
+
+int main() {
+    printf("START: Moj pid = %d \n", getpid());
+    int PidOtroka = fork();
+    if(PidOtroka != 0){
+        PidOtroka = fork();
+        if(PidOtroka != 0){
+            PidOtroka = fork();
+        }
+    }
+    printf("KONEC: Moj pid = %d PidStarsa = %d PidOtroka = %d\n", getpid(), getppid(), PidOtroka);
+    sleep(1);
+    return 0;
 }
-else
-{
-   wait(0);
-   printf
-...
