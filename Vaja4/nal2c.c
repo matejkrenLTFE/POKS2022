@@ -3,8 +3,10 @@
 
 void *fun1();
 
-/* pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER; */
+pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
+
 int stevec = 0;
+
 
 int main() {
    pthread_t thread1, thread2;
@@ -27,15 +29,16 @@ void *fun1(){
   int stevecPOM;
   int i, n;
   for( i = 0; i < 2000; i++){
-    stevecPOM = stevec;
+    pthread_mutex_lock(&mutex1);
 
+    stevecPOM = stevec;
     stevecPOM++;
     // ZAKASNITEV
     for (n = 0; n < 1000; n++){
       int a  = 2*32*3123123123/532;
     }
-
     stevec = stevecPOM;
+    pthread_mutex_unlock(&mutex1);
   }
 
 }
