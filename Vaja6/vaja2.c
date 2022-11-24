@@ -103,7 +103,7 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * offset)
 {
   raw_copy_from_user(msgW,buff,len);
   printk(KERN_INFO "device_write. %s\n",msgW);
-  msgR = msgW;
+  //msgR = msgW;
   return len;
 }
 
