@@ -22,6 +22,12 @@ int main () {
 void fun1(void * ptr) {
   char *msg;
   msg = (char *) ptr;
+
+   if(msg == "2"){
+      nice(-4);
+   }
+
+
   int i,j;
   int b;
   for (i=0; i< 40; i++) {

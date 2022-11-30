@@ -3,6 +3,7 @@
 #include <semaphore.h>
 
 void fun1();
+int semafor = 0;
 
 int main () {
    pthread_t thread1, thread2; 
@@ -22,9 +23,14 @@ int main () {
 void fun1(void * ptr) {
   char *msg;
   msg = (char *) ptr;
+
   int i,j;
   int b;
   for (i=0; i< 40; i++) {
+      
+      while(semafor);  //Zaklenemo semafor
+      semafor = 1;
+
       printf("Thread %s i=%d ", msg, i ); 
 
       for (j=0;j<60; j++){
@@ -33,9 +39,13 @@ void fun1(void * ptr) {
             int a = 100*54/1232*1231322/544 - 11;
          }
       }
-   printf("\n");
-   for(b=0; b < 10000000; b++){                // PRIBLIŽNO 1M ~ 1s
-      int a = 100*54/1232*1231322/544 - 11;
-   }
+      printf("\n");
+      
+      semafor = 0; // odklenemo semafor
+
+
+      for(b=0; b < 10000000; b++){                // PRIBLIŽNO 1M ~ 1s
+         int a = 100*54/1232*1231322/544 - 11;
+      }
   }
 }
