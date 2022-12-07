@@ -24,6 +24,10 @@ int main() {
         ssize_t bytes_read;
         bytes_read = mq_receive(mq, buffer, MAX_SIZE, NULL); /* receive message */
         printf("%s\n", buffer);
+
+        mq_getattr(mq, &attr);
+        printf("Atributi: mq_flags: %ld, mq_curmsgs: %ld\n", attr.mq_flags, attr.mq_curmsgs);
+
         if (buffer[1] == MSG_STOP[1]) {
             break;
         }
