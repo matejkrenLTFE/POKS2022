@@ -3,6 +3,7 @@
 
 #include <netdb.h>
 #include <netinet/in.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,12 +41,18 @@ int main(int argc, char *argv[]) {
         n = recvfrom(sock, buf, 1024, 0, (struct sockaddr *)&from, &fromlen);
         if (n < 0) error("recvfrom");
         printf("Received a datagram:%s\n ", buf);
+        if (buf[0] == 'X') {
+            break;
+        }
         printf("Please enter the message: ");
         bzero(buf, 1024);
         fgets(buf, 1024, stdin);
         printf("Sent %s \n", buf);
         n = sendto(sock, buf, 1024, 0, (struct sockaddr *)&from, fromlen);
         if (n < 0) error("sendto");
+        if (buf[0] == 'X') {
+            break;
+        }
     }
     close(sock);
     return 0;

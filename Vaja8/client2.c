@@ -51,6 +51,10 @@ int main(int argc, char *argv[]) {
 
 void poslji(void) {
     char buf[1024];
+    bzero(buf, 1024);
+    printf("Send %s \n", buf);
+    n = sendto(sock, buf, 1024, 0, (const struct sockaddr *)&server, length);
+    if (n < 0) error("Sendto");
     while (1) {
         printf("Please enter the message: ");
         bzero(buf, 1024);
