@@ -1,9 +1,44 @@
+#define R_PIN 11
+#define B_PIN 10
+#define G_PIN 9
+
+int R = 255;
+int B = 0;
+int G = 0;
 
 void TIMER2_init(void);
 
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
+    TIMER2_init();
+}
+
+ISR(TIMER2_COMPA_vect) {
+    // izvajanje prekinitvene rutine!!!
+
+    if (R == 255 & B == 0) {
+        G++;
+    }
+    if (G == 255 & B == 0) {
+        R--;
+    }
+    if (R == 0 && G == 255) {
+        B++;
+    }
+    if (B == 255 && R == 0) {
+        G--;
+    }
+    if (G == 0 && B == 255) {
+        R++;
+    }
+    if (R == 255 && G == 0) {
+        B--;
+    }
+
+    analogWrite(R_PIN, R);
+    analogWrite(G_PIN, G);
+    analogWrite(B_PIN, B);
 }
 
 void loop() {
